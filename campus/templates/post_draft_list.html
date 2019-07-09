@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<header>
+  <h1>My Drafts</h1>
+</header>
+
+<p>Below is a listing of your drafts ready to be published</p>
+
+<br>
+<input type="text" id="search" onkeyup="filterList()" placeholder="Search Drafts .." title="What do you like to learn about?">
+<ul id='articleList' class='articleList'>
+
+  {% for post in posts %}
+  <li><h6>{{post.created_date}}</h6><a href="{% url 'post_detail' pk=post.pk %}">{{post.title}}</a><br><p>{{post.descp | truncatewords:50}}</a><h6>{{post.author}}</h6></p></li>
+  {% endfor %}
+      
+</ul>
+
+
+{%endblock%}

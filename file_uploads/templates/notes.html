@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<header>
+  <h1>Notes</h1>
+</header>
+
+<p>Below is a listing of <strong>academic notes</strong>. Please share your notes as well to help others in study. <a href='https://facebook.com' target="_blank">Get In Touch</a> ...</p>
+
+<br>
+<input type="text" id="search" onkeyup="filterList()" placeholder="subject/topic " title="What do you like to learn about?">
+
+<br>
+
+<form action="." method="POST" enctype="multipart/form-data">
+	{%csrf_token%}
+	<p>upload notes</p>
+	<input type="file" name="doc">
+	<br>
+	<input type="text" name="note" placeholder="subject/topic">
+	<br>
+	<input type="submit" name="submit">
+	
+</form>
+<div>
+	{%for message in messages%}
+	<h3>{{message}}</h3>
+	{%endfor%}
+</div>
+
+
+<ul id='articleList' class='articleList'>
+
+{% for i in show %}
+<li><h6>{{i.uploaded_at}}</h6><p>{{i.note}}</p><br><p>{{i.document}}</p>
+<a href="/notes{{i.document.url}}" target="_blank">download</a><h6><em>uploaded by </em>[{{i.author}}]</h6></li>
+{% endfor %}
+      
+</ul>
+
+
+{% endblock %}
+  

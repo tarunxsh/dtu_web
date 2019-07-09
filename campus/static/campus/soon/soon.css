@@ -1,0 +1,119 @@
+/* Set height to 100% for body and html to enable the background image to cover the whole page: */
+body, html {
+    height: 100%
+}
+
+.bgimg {
+  filter: blur(100px);
+}
+
+.heart {
+    color: red;
+}
+
+.text { 
+      /* Add a white text color to all elements inside the .bgimg container */
+    color: white;
+    /* Add a font */
+    font-family: "Courier New", Courier, monospace;
+    /* Set the font-size to 25 pixels */
+    font-size: 25px;
+}
+
+/* Position text in the top-left corner */
+.topleft {
+    position: fixed;
+    top: 0;
+    left: 16px;
+}
+
+/* Position text in the bottom-left corner */
+.bottomleft {
+    position: fixed;
+    bottom: 0;
+    left: 16px;
+}
+
+
+
+.footer {
+   position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: white;
+    text-align: center;
+}
+
+.timer{
+    position: fixed;
+    text-align: center;
+}
+
+/* Position text in the middle */
+.middle {
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+body{
+    text-align: center;
+  font-family: sans-serif;
+  font-weight: 100;
+   /* Background image */
+    background: url('soon1.png');
+    /*blur*/
+    
+    /* Full-screen */
+    height: 100%;
+    /* Center the background image */
+    background-position: center;
+    /* Scale and zoom in the image */
+    background-size: cover;
+    /* Add position: relative to enable absolutely positioned elements inside the image (place text) */
+    position: fixed;
+}
+
+h1{
+  color: #000;
+  font-weight: 100;
+  font-size: 40px;
+  font-family: 'Hanalei Fill', cursive; 
+  margin: 40px 0px 20px;
+}
+
+p{
+    font-family: 'Do Hyeon', sans-serif;
+}
+
+#clockdiv{
+    font-family: sans-serif;
+    color: #fff;
+    display: inline-block;
+    font-weight: 100;
+    text-align: center;
+    font-size: 30px;
+}
+
+#clockdiv > div{
+    padding: 10px;
+    border-radius: 3px;
+    background: #00BF96;
+    display: inline-block;
+}
+
+#clockdiv div > span{
+    padding: 15px;
+    border-radius: 3px;
+    background: #00816A;
+    display: inline-block;
+}
+
+.smalltext{
+    padding-top: 5px;
+    font-size: 16px;
+    font-family: 'Do Hyeon', sans-serif
+}
