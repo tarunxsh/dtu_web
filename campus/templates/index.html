@@ -1,13 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
+<article class="single" style="font-family: 'Do Hyeon', sans-serif;">
+<div class="adsense">
+	<script data-ad-client="ca-pub-9828487555514584" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</div>	
 <header>
   <h1>Articles</h1>
 </header>
-
+<!--
 <p>Below is a listing of our articles. Every week we share our learning. If you have anything you struggle with in suggestions or ideas for topics please do <a href='https://facebook.com' target="_blank">Get In Touch</a> ...</p>
-
+-->
 <br>
 <input type="text" id="search" onkeyup="filterList()" placeholder="Search Articles .." title="What do you like to learn about?">
 
@@ -21,7 +24,12 @@
 <ul id='articleList' class='articleList'>
 
   {% for i in posts %}
-  <li><h6>{{i.published_date}}</h6><a href="{%url 'post_detail' pk=i.pk%}">{{i.title}}</a><br><p>{{i.descp | truncatewords:50}}</a><h6>{{i.author}}</h6></p></li>
+  <li>
+  	<em><a href="{%url 'post_detail' pk=i.pk%}">{{i.title}}</a></em><br>
+  	<p>{{i.descp | truncatewords:50|striptags}}</p>
+  	<h6>{{i.author}}</h6>
+  	<h6>{{i.published_date}}</h6>
+  </li>
   {% endfor %}
       
 </ul>

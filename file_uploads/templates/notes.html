@@ -2,7 +2,7 @@
 
 {% block content %}
 
-
+<article class="single">
 <header>
   <h1>Notes</h1>
 </header>
@@ -34,7 +34,7 @@
 <ul id='articleList' class='articleList'>
 
 {% for i in show %}
-<li><h6>{{i.uploaded_at}}</h6><p>{{i.note}}</p><br><p>{{i.document}}</p>
+<li><h6>{{i.uploaded_at}}</h6><p>{{i.note}}</p><br>
 <a href="/notes{{i.document.url}}" target="_blank">download</a><h6><em>uploaded by </em>[{{i.author}}]</h6></li>
 {% endfor %}
       

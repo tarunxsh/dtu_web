@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/2.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
-
+import django_heroku
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -20,12 +20,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'jg7ke&6+p7py0_jxxbvlpio!frv8t*bw)t2fluh42v-2aogb)0'
+SECRET_KEY = 'jg7ke&6+p7py0_jxxbvlpio!frv8t*bw)t2fluh42v-2aogb)0'   
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','.ngrok.io','192.168.43.55',]
+ALLOWED_HOSTS = ['dtu2k17.herokuapp.com','192.168.43.55',]
 
 
 # Application definition
@@ -37,12 +37,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'tinymce',
+    'crispy_forms',
     'accounts',
     'campus',
     'file_uploads',
 ]
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -79,15 +84,30 @@ WSGI_APPLICATION = 'dtu.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-DATABASES = {
+
+if DEBUG :
+    DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dtu',
-        'USER' : 'postgres',
-        'PASSWORD':'1234',
+        'NAME': 'dtu2k17',
+        'USER' : 'tarunesh1234',
+        'PASSWORD':'Tk@psql2019',
         'HOST':'localhost',
+        }
     }
-}
+
+else:
+    DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'd6nsmmrop7065v',
+        'USER' : 'fhmlfnelzvjjcq',
+        'PASSWORD':'f2c8652b281981d8b4eabc9e1d5252560ca7733e77603ad6d4f1f55cac832673',
+        'HOST':'ec2-174-129-227-146.compute-1.amazonaws.com',
+        }
+    }
+
+
 
 
 # Password validation
@@ -128,7 +148,13 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 #for media files upload location
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'file_uploads/media') #default location of FileSystemStorage location parameter
+
+
+django_heroku.settings(locals())

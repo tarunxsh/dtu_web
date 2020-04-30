@@ -3,14 +3,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+  <!-- GOOGLE FONTS -->
+  <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet'>
   <link href="https://fonts.googleapis.com/css?family=Abril+Fatface|Do+Hyeon|Hanalei+Fill" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Oswald:700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="{% static 'campus/theme/stylesheet/style.min.css'%}">
+  <link href="https://fonts.googleapis.com/css?family=Rajdhani:300&display=swap" rel="stylesheet">
 
+
+  <!-- CSS -->
   <link rel="stylesheet" type="text/css" href="{% static 'campus/theme/stylesheet/ribbons.css'%}">
-  <link rel="stylesheet" type="text/css" href="{% static 'campus/theme/stylesheet/custom.css'%}">
+  <link rel="stylesheet" href="{% static 'campus/bootstrap/css/bootstrap.min.css'%}">
+  <link rel="stylesheet" type="text/css" href="{% static 'campus/theme/stylesheet/main.css'%}">
 
+
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="{% static 'campus/bootstrap/js/bootstrap.min.js'%}"></script>
+  
     <link rel="icon" href="{% static 'campus/img/icon.png'%}" type="image/x-icon">
 
   <meta charset="utf-8" />
@@ -20,54 +31,43 @@
 
     <meta name="author" content="Tarunesh" />
   
-  <title>Blog &ndash;     Articles
-</title>
+  <title>thatEEguy &ndash;Blog</title>
 
 
 </head>
 <body>
 
   <!-- change ribbon color based on topic -->
-  <div class="ribbon right
-      blue
-  ">
+  <div class="ribbon left blue">
     <a href="https://facebook.com" target="_blank"><strong>Get In Touch</strong></a>
   </div>
 
   <!-- change aside color based on topic -->
-    <aside class='blue' style="background-color: #388E3C;">
-        <img class="profile" src="{% static 'campus/img/avatar.png'%}">
-    <div style="font-family: 'Do Hyeon', sans-serif;">
-      <h1 style="font-family: 'Abril Fatface', cursive;"><a href="">//Tech_Blog </a></h1>
+    <aside>
+      <div><img class="profile" src="{% static 'campus/img/avatar.gif'%}"></div>
+        
 
-<p>Articles and News - One Bite a Day</p>
+    <div style="font-family: 'Do Hyeon', sans-serif;">
+      <h1 style="font-family: 'Oswald', sans-serif; font-size: 70px;"><a href="">thatEEguy</a></h1>
+
+<p>Articles and Facts</p>
       <nav>
+
         <ul class="list">
           {%if user.is_authenticated%}
             
-            <li>Hello! {{user.first_name | title}} {{user.last_name|title}}</li>
-            <li><a href="{% url 'newpost' %}">Post</a></li>
-            <li><a href="{% url 'post_draft_list' %}">Drafts</a></li>
-            <li><a href="#">Personal</a></li>
-            <li><a href="#">Notices</a></li>
+            
+            <li><a href="{% url 'index' %}">Articles</a></li>
             <li><a href="{%url 'notes'%}">Notes</a></li>
             <li><a href="{% url 'about'%}">About</a></li>
-            <li><a href="{% url 'index' %}">Articles</a></li>
-            <li><a href="{% url 'contact' %}">Contact</a></li>
-            <li><a href="{% url 'logout' %}">logout</a></li>
             
             
-            {%if user.is_superuser%}
-            <li><a href="{% url 'admin:index'%}">admin login</a></li>
-            {%endif%}
             
             {%else%}
             
-            <li><a href="{% url 'about'%}">About</a></li>
             <li><a href="{% url 'index' %}">Articles</a></li>
-            <li><a href="{% url 'contact' %}">Contact</a></li>
-            <li><a href="{% url 'register' %}">Register</a></li>
             <li><a href="{% url 'login' %}">Login</a></li>
+            <li><a href="{% url 'about'%}">About</a></li>
             {%endif%}
 
         </ul>
@@ -77,14 +77,89 @@
 
   </aside>
   <main>
-      <article class="single">
+
+    <!--*********************************************NAVBAR*************************************************************-->
+
+{%if user.is_authenticated%}
+<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+  <div class="navbar-brand">
+
+    
+  <div class=" dropdown  dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{user.first_name | title}}</div>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Profile</a>
+          <a class="dropdown-item" href="{% url 'post_draft_list' %}">Drafts</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="{% url 'logout' %}">Log Out</a>
+        </div>
+    </div>   
+
+  {%if user.is_superuser%}     
+  <a href="{% url 'admin:index'%}" class="badge badge-warning">Admin Login</a>
+  {%endif%}
+
+  <a class="nav-link" href="{% url 'newpost' %}">New Post</a>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent"> 
+    <ul class="navbar-nav ml-auto">
+
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link"s href="{% url 'logout' %}">Log Out</a>
+      </li>
+     
+    </ul>
+  </div>
+</nav>
+
+  {%else%}
+
+  <nav class="navbar sticky-top navbar-expand-lg navbar-light">
+
+  <a class="navbar-brand" href="#">Hello World</a>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent"> 
+    <ul class="navbar-nav ml-auto">
+
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'register' %}">Register</a>
+      </li>
+      <li class="nav-item active">
+        <a  class="nav-link" href="{% url 'login' %}">Login</a>
+      </li>
+     
+    </ul>
+  </div>
+</nav>
+
+  {%endif%}
+
+
+<!--**********************************************************************************************************-->
+
+<br>
+      <!-- <article> in inside other pages -->
         {% block content %}
 
         {% endblock %}
 
       </article>
   <footer>
-    <p>&copy; NEILIT </p>
+    <p>&copy; Tarunesh Kumar Gautam </p>
     <p>Made with &hearts; by Tarunesh </p>
 </footer>
 

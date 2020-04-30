@@ -2,7 +2,37 @@
 
 
 {% block content %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<article class="single">
+    
+    <header>
+    <h1>{{post.title}}</h1>
+    <p>
+        Posted by {{post.author}}
+        <br>
+        {% if post.published_date %}
+            <div class="date">
+                {{ post.published_date }}
+            </div>
+         {% else %}
+            <a href="{%url 'post_publish' pk=post.pk%}"><button class="btn btn-success" type="submit">Publish</button></a>
 
+        {% endif %}
+        {% if user.is_authenticated %}
+            {%if request.user == post.author%}
+                <a href="{%url 'post_edit' pk=post.pk%}"><button class="btn btn-primary" type="submit">Edit</button></a>
+                <a href="{%url 'post_remove' pk=post.pk%}"><button class="btn btn-danger" type="submit">Delete</button></a>
+            {%endif%}   
+        {% endif %}
+    </p>
+    </header>
+
+    <div>
+        <p>{{post.descp|safe}}</p>
+    </div>
+  
+
+<!-- ***********____Coded____Before_____********************
 <div class="post">
         {% if post.published_date %}
             <div class="date">
@@ -24,5 +54,8 @@
         <p>{{ post.descp|linebreaksbr }}</p>
         
     </div>
+-->
+
+
 
 {% endblock %}

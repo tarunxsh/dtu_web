@@ -1,7 +1,9 @@
 from django.shortcuts import render,redirect
 from .models import Post
+
 from django.http import HttpResponse
 from django.utils import timezone
+from .forms import PostForm
 
 # Create your views here.
 def index(request):
@@ -12,11 +14,9 @@ def index(request):
 def about(request):
     return render(request, 'about.html')
 
-
-def contact(request):
-    return render(request, 'contact.html')
-
 def newpost(request):
+	form = PostForm()
+
 	if request.method == 'POST':
 		print(request.POST)
 		title = request.POST['title']
@@ -26,7 +26,9 @@ def newpost(request):
 		return redirect('post_detail',pk=post.pk) 
 
 	else:	
-		return render(request,'newpost.html')    
+		return render(request,'newpost.html',{'form':form})    
+
+
 
 
 def post_detail(request,pk):
@@ -38,6 +40,7 @@ def post_detail(request,pk):
 	#print(type(author))
 	#print(type(request.user))
 	return render(request,'post_detail.html', {'post':post})
+
 
 
 def post_publish(request, pk):
@@ -65,8 +68,8 @@ def post_edit(request,pk):
 	post = Post.objects.get(pk=pk)
 	
 	if request.method == 'POST':
-		edited_title = request.POST['edited_title']
-		edited_descp =request.POST['edited_descp']
+		edited_title = request.POST['title']
+		edited_descp =request.POST['descp']
 		print(edited_title,edited_descp)
 		Post.objects.filter(pk=pk).update(title=edited_title,descp=edited_descp)
 		post_publish(request,pk)
@@ -76,4 +79,5 @@ def post_edit(request,pk):
 
 
 	else:
-		return render(request,'post_edit.html',{'post':post})	
+		form = PostForm(instance= post)
+		return render(request,'newpost.html',{'form':form,})	
